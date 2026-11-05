@@ -1,7 +1,7 @@
 {
   "name": "pakrates",
   "version": "0.1.0",
-  "description": "Open, auto-updating data on Pakistan's official petrol and diesel prices, with the full price breakdown.",
+  "description": "Open data on Pakistan's official petrol and diesel prices, with the full price breakdown.",
   "type": "module",
   "private": true,
   "license": "MIT",
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "update": "node scripts/update.js",
+    "sync": "node scripts/sync.js",
     "test": "node --test"
   },
   "dependencies": {

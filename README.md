@@ -71,7 +71,7 @@ A wrong fuel price is worse than a missing one, so PakRates refuses to publish n
 
 1. **OGRA's formulas are recomputed.** Each PDF row has a formula such as `V={P+S+T+U}`. PakRates recalculates every one. If a layout change misaligns a column, the numbers stop adding up and the record is rejected.
 2. **The total is checked a second way.** Rows are also found by label, and their sum must match the printed total.
-3. **Failures are loud.** A rejected publication is left out and the GitHub Action fails.
+3. **Failures are loud.** A rejected publication is left out and the update exits with an error.
 4. **Every record links to its source PDF**, so anyone can check it.
 
 ## What the numbers mean
@@ -95,7 +95,7 @@ npm run update
 
 `npm run update` adds any new publications to `docs/api/v1`. The site is plain HTML in `docs/`.
 
-A GitHub Action runs this twice a day and commits new data.
+`npm run sync` does the same, then commits and pushes any new data. A scheduled task on the maintainer's computer runs it, because OGRA's site returns HTTP 403 to GitHub's servers. GitHub Actions only runs the tests.
 
 ## Contributing
 

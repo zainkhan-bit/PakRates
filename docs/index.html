@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PakRates: Pakistan petrol and diesel prices, explained</title>
+  <meta name="description" content="Official OGRA petrol and diesel prices with the full breakdown of every litre: product cost, margins, levies and customs duty. Free JSON API and CSV.">
+  <meta property="og:title" content="PakRates: where your petrol money goes">
+  <meta property="og:description" content="Official petrol and diesel prices in Pakistan, with every rupee explained. Free open data.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a6b45'/%3E%3Cpath d='M9 24V8h8a5 5 0 0 1 0 10h-8' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="./">PakRates</a>
+    <nav aria-label="Sections">
+      <a href="#breakdown">Breakdown</a>
+      <a href="#history">History</a>
+      <a href="#api">API</a>
+      <a id="repo-link" href="#" hidden>GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Pakistan's fuel prices, with every rupee explained.</h1>
+      <p class="lede">Official OGRA prices, updated automatically and checked against OGRA's own formulas.</p>
+      <div class="prices">
+        <article class="price" aria-labelledby="petrol-name">
+          <h2 id="petrol-name">Petrol</h2>
+          <p class="figure"><span class="currency">Rs</span> <span id="petrol-price">...</span></p>
+          <p class="change" id="petrol-change"></p>
+        </article>
+        <article class="price" aria-labelledby="diesel-name">
+          <h2 id="diesel-name">Diesel</h2>
+          <p class="figure"><span class="currency">Rs</span> <span id="diesel-price">...</span></p>
+          <p class="change" id="diesel-change"></p>
+        </article>
+      </div>
+      <p class="meta">Per litre, effective <span id="effective-date"></span>. <a id="source-link" href="#">OGRA source PDF</a></p>
+    </section>
+
+    <section id="breakdown">
+      <div class="section-head">
+        <h2>Where each litre's money goes</h2>
+        <div class="toggle" role="group" aria-label="Choose a fuel">
+          <button type="button" data-product="petrol" aria-pressed="true">Petrol</button>
+          <button type="button" data-product="diesel" aria-pressed="false">Diesel</button>
+        </div>
+      </div>
+      <p class="headline" id="breakdown-headline"></p>
+      <div class="stack" id="stack" role="img"></div>
+      <div class="bracket" id="bracket" aria-hidden="true"></div>
+      <ul class="legend" id="legend"></ul>
+    </section>
+
+    <section id="history">
+      <div class="section-head">
+        <h2>Price history</h2>
+        <ul class="series-key" aria-label="Chart legend">
+          <li><span class="line-key petrol"></span>Petrol</li>
+          <li><span class="line-key diesel"></span>Diesel</li>
+        </ul>
+      </div>
+      <p class="note" id="history-range"></p>
+      <div class="chart" id="chart"></div>
+      <details>
+        <summary>View all prices as a table</summary>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Effective date</th><th scope="col">Petrol</th><th scope="col">Diesel</th><th scope="col">Source</th></tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+    <section id="api">
+      <h2>Use this data</h2>
+      <p>Free, with no API key. Files update when OGRA publishes new prices.</p>
+      <ul class="endpoints">
+        <li><a data-endpoint="latest.json" href="api/v1/latest.json">latest.json</a><span>Current prices and breakdown</span></li>
+        <li><a data-endpoint="history.json" href="api/v1/history.json">history.json</a><span>Every published price</span></li>
+        <li><a data-endpoint="history.csv" href="api/v1/history.csv">history.csv</a><span>The same history for spreadsheets</span></li>
+      </ul>
+      <pre><code id="example"></code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>PakRates is an independent open data project, not affiliated with OGRA or the Government of Pakistan. Prices are OGRA's maximum ex-depot prices and exclude secondary freight, so pump prices can differ slightly by location.</p>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="status" hidden></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

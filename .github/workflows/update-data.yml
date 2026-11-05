@@ -1,0 +1,45 @@
+name: Update prices
+
+on:
+  schedule:
+    # OGRA publishes around midnight Pakistan time (UTC+5).
+    - cron: "30 19 * * *"
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+      - name: Fetch new publications
+        id: update
+        run: npm run update
+        continue-on-error: true
+
+      - name: Commit new data
+        run: |
+          git add docs/api
+          if git diff --cached --quiet; then
+            echo "No new prices."
+            exit 0
+          fi
+          git config user.name "${{ github.repository_owner }}"
+          git config user.email "${{ github.repository_owner_id }}+${{ github.repository_owner }}@users.noreply.github.com"
+          git commit -m "Update fuel prices"
+          git push
+
+      # Good records are saved above, then the run fails so the problem is visible.
+      - name: Report failed publications
+        if: steps.update.outcome == 'failure'
+        run: exit 1

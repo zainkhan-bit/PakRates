@@ -1,0 +1,7 @@
+node_modules/
+.cache/
+.venv/
+*.log
+.DS_Store
+Thumbs.db
+.gstack/

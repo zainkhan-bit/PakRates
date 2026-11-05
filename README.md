@@ -4,7 +4,7 @@
 
 PakRates reads OGRA's price publications, checks them against OGRA's own formulas, and publishes the result as free open data. No API key, no sign-up, no server.
 
-[Live site](https://YOUR-USERNAME.github.io/PakRates/) · [latest.json](docs/api/v1/latest.json) · [history.csv](docs/api/v1/history.csv)
+[Live site](https://zainkhan-bit.github.io/PakRates/) · [latest.json](docs/api/v1/latest.json) · [history.csv](docs/api/v1/history.csv)
 
 ![PakRates showing the petrol price, its breakdown and price history](docs/preview.png)
 
@@ -16,7 +16,7 @@ On 4 November 2026, Rs 111.15 of a Rs 369.06 litre of petrol, or 30%, was levies
 
 ## Use the data
 
-Base URL: `https://YOUR-USERNAME.github.io/PakRates/api/v1/`
+Base URL: `https://zainkhan-bit.github.io/PakRates/api/v1/`
 
 | File | What it has |
 |---|---|
@@ -25,7 +25,7 @@ Base URL: `https://YOUR-USERNAME.github.io/PakRates/api/v1/`
 | `history.csv` | The same history for spreadsheets |
 
 ```js
-const response = await fetch("https://YOUR-USERNAME.github.io/PakRates/api/v1/latest.json");
+const response = await fetch("https://zainkhan-bit.github.io/PakRates/api/v1/latest.json");
 const { petrol, diesel } = await response.json();
 
 console.log(petrol.price);                   // 369.06

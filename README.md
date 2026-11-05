@@ -1,18 +1,46 @@
-# PakRates
+<h1 align="center">PakRates</h1>
 
-**Pakistan's official petrol and diesel prices, with every rupee explained.**
+<p align="center"><strong>Pakistan's official petrol and diesel prices, with every rupee explained.</strong></p>
 
-PakRates reads OGRA's price publications, checks them against OGRA's own formulas, and publishes the result as free open data. No API key, no sign-up, no server.
+<p align="center">
+  <a href="https://zainkhan-bit.github.io/PakRates/"><img alt="Live petrol price" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fzainkhan-bit.github.io%2FPakRates%2Fapi%2Fv1%2Flatest.json&query=%24.petrol.price&prefix=Rs%20&label=petrol&color=2a78d6"></a>
+  <a href="https://zainkhan-bit.github.io/PakRates/"><img alt="Live diesel price" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fzainkhan-bit.github.io%2FPakRates%2Fapi%2Fv1%2Flatest.json&query=%24.diesel.price&prefix=Rs%20&label=diesel&color=eb6834"></a>
+  <a href="https://github.com/zainkhan-bit/PakRates/actions/workflows/test.yml"><img alt="Tests" src="https://github.com/zainkhan-bit/PakRates/actions/workflows/test.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-0a6b45"></a>
+</p>
 
-[Live site](https://zainkhan-bit.github.io/PakRates/) · [latest.json](docs/api/v1/latest.json) · [history.csv](docs/api/v1/history.csv)
+<p align="center">
+  <a href="https://zainkhan-bit.github.io/PakRates/"><strong>Open the live site</strong></a> ·
+  <a href="#use-the-data"><strong>Use the free API</strong></a> ·
+  <a href="https://zainkhan-bit.github.io/PakRates/api/v1/history.csv"><strong>Download the CSV</strong></a>
+</p>
 
 ![PakRates showing the petrol price, its breakdown and price history](docs/preview.png)
 
-## Why
+## The receipt your petrol pump never prints
 
-News tells you the price changed. It rarely tells you why. OGRA publishes the full breakdown of each litre, but only as PDFs. PakRates turns those PDFs into data anyone can use.
+The news tells you the price changed. It rarely tells you why. OGRA publishes the full breakdown of every litre, but only as PDFs. PakRates turns those PDFs into data anyone can read and use.
 
-On 4 November 2026, Rs 111.15 of a Rs 369.06 litre of petrol, or 30%, was levies and customs duty.
+One litre of petrol, effective 5 November 2026:
+
+| Item | Rs |
+|---|---:|
+| Fuel cost | 225.49 |
+| Freight and margins | 25.36 |
+| Petroleum levy | 80.00 |
+| Climate levy | 5.00 |
+| Customs duty | 26.15 |
+| Sales tax | 0.00 |
+| **Total** | **362.00** |
+
+Rs 111.15 of that litre, or 31%, was levies and customs duty.
+
+## What you get
+
+- **The price, explained.** Every petrol and diesel price comes with its full breakdown.
+- **Free data.** JSON and CSV files, with no API key and no sign-up.
+- **Price history.** Every OGRA publication since 21 July 2026.
+- **Numbers you can check.** Each record links to its source PDF.
 
 ## Use the data
 
@@ -20,16 +48,34 @@ Base URL: `https://zainkhan-bit.github.io/PakRates/api/v1/`
 
 | File | What it has |
 |---|---|
-| `latest.json` | Current prices, change from the previous publication, and breakdown |
-| `history.json` | Every published price since 21 July 2026 |
-| `history.csv` | The same history for spreadsheets |
+| [`latest.json`](https://zainkhan-bit.github.io/PakRates/api/v1/latest.json) | Current prices, change from the previous publication, and breakdown |
+| [`history.json`](https://zainkhan-bit.github.io/PakRates/api/v1/history.json) | Every published price |
+| [`history.csv`](https://zainkhan-bit.github.io/PakRates/api/v1/history.csv) | The same history for spreadsheets |
+
+**curl**
+
+```bash
+curl https://zainkhan-bit.github.io/PakRates/api/v1/latest.json
+```
+
+**JavaScript**
 
 ```js
 const response = await fetch("https://zainkhan-bit.github.io/PakRates/api/v1/latest.json");
 const { petrol, diesel } = await response.json();
 
-console.log(petrol.price);                   // 369.06
-console.log(petrol.breakdown.petroleumLevy); // 80
+console.log(petrol.price, diesel.price);
+console.log(petrol.breakdown.petroleumLevy);
+```
+
+**Python**
+
+```python
+import requests
+
+data = requests.get("https://zainkhan-bit.github.io/PakRates/api/v1/latest.json").json()
+
+print(data["petrol"]["price"], data["diesel"]["price"])
 ```
 
 <details>
@@ -37,15 +83,15 @@ console.log(petrol.breakdown.petroleumLevy); // 80
 
 ```json
 {
-  "effectiveDate": "2026-11-04",
+  "effectiveDate": "2026-11-05",
   "effectiveTime": "00:00",
   "currency": "PKR",
   "unit": "litre",
-  "source": "https://www.ogra.org.pk/download/17909?lang=en",
+  "source": "https://www.ogra.org.pk/download/17955?lang=en",
   "petrol": {
-    "price": 369.06,
+    "price": 362,
     "breakdown": {
-      "productCost": 232.55,
+      "productCost": 225.49,
       "customsDuty": 26.15,
       "freightAndMargins": 25.36,
       "petroleumLevy": 80,
@@ -53,13 +99,15 @@ console.log(petrol.breakdown.petroleumLevy); // 80
       "salesTax": 0
     },
     "market": {
-      "costAndFreightUsdPerBarrel": 141.01,
-      "exchangeRatePkrPerUsd": 276.91
+      "costAndFreightUsdPerBarrel": 136.97,
+      "exchangeRatePkrPerUsd": 276.89
     },
-    "previousPrice": 374.51,
-    "change": -5.45
+    "previousPrice": 369.06,
+    "change": -7.06
   },
-  "diesel": { "...": "same shape as petrol" }
+  "diesel": {
+    "...": "same shape as petrol"
+  }
 }
 ```
 
@@ -99,13 +147,9 @@ npm run update
 
 ## Contributing
 
-Issues and pull requests are welcome. Good next steps:
+Ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-- Electricity tariffs and a bill calculator from NEPRA data
-- Kerosene and light diesel oil prices
-- An Urdu version of the site
-
-If OGRA changes its PDF layout, add the new PDF to `test/fixtures` with a test.
+If PakRates is useful to you, a star helps other people find it.
 
 ## Data source and license
 

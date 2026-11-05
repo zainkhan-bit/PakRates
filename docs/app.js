@@ -309,17 +309,7 @@ function renderApi() {
   ].join("\n");
 }
 
-function linkRepository() {
-  const [owner] = location.hostname.split(".github.io");
-  const [repository] = location.pathname.split("/").filter(Boolean);
-  if (!location.hostname.endsWith(".github.io") || !repository) return;
-  const link = $("repo-link");
-  link.href = `https://github.com/${owner}/${repository}`;
-  link.hidden = false;
-}
-
 async function start() {
-  linkRepository();
   renderApi();
 
   const response = await fetch("api/v1/history.json");

@@ -2662,5 +2662,41 @@
         "exchangeRatePkrPerUsd": 276.89
       }
     }
+  },
+  {
+    "id": 18027,
+    "effectiveDate": "2026-11-06",
+    "effectiveTime": "00:00",
+    "source": "https://www.ogra.org.pk/download/18027?lang=en",
+    "petrol": {
+      "price": 352.59,
+      "breakdown": {
+        "productCost": 216.19,
+        "customsDuty": 26.04,
+        "freightAndMargins": 25.36,
+        "petroleumLevy": 80,
+        "climateLevy": 5,
+        "salesTax": 0
+      },
+      "market": {
+        "costAndFreightUsdPerBarrel": 131.61,
+        "exchangeRatePkrPerUsd": 276.87
+      }
+    },
+    "diesel": {
+      "price": 382.25,
+      "breakdown": {
+        "productCost": 258.64,
+        "customsDuty": 15.68,
+        "freightAndMargins": 22.93,
+        "petroleumLevy": 80,
+        "climateLevy": 5,
+        "salesTax": 0
+      },
+      "market": {
+        "costAndFreightUsdPerBarrel": 148.4,
+        "exchangeRatePkrPerUsd": 276.87
+      }
+    }
   }
 ]

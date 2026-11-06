@@ -1,30 +1,30 @@
 {
-  "effectiveDate": "2026-11-05",
+  "effectiveDate": "2026-11-06",
   "effectiveTime": "00:00",
   "currency": "PKR",
   "unit": "litre",
-  "source": "https://www.ogra.org.pk/download/17955?lang=en",
+  "source": "https://www.ogra.org.pk/download/18027?lang=en",
   "petrol": {
-    "price": 362,
+    "price": 352.59,
     "breakdown": {
-      "productCost": 225.49,
-      "customsDuty": 26.15,
+      "productCost": 216.19,
+      "customsDuty": 26.04,
       "freightAndMargins": 25.36,
       "petroleumLevy": 80,
       "climateLevy": 5,
       "salesTax": 0
     },
     "market": {
-      "costAndFreightUsdPerBarrel": 136.97,
-      "exchangeRatePkrPerUsd": 276.89
+      "costAndFreightUsdPerBarrel": 131.61,
+      "exchangeRatePkrPerUsd": 276.87
     },
-    "previousPrice": 369.06,
-    "change": -7.06
+    "previousPrice": 362,
+    "change": -9.41
   },
   "diesel": {
-    "price": 387.81,
+    "price": 382.25,
     "breakdown": {
-      "productCost": 264.2,
+      "productCost": 258.64,
       "customsDuty": 15.68,
       "freightAndMargins": 22.93,
       "petroleumLevy": 80,
@@ -32,10 +32,10 @@
       "salesTax": 0
     },
     "market": {
-      "costAndFreightUsdPerBarrel": 151.58,
-      "exchangeRatePkrPerUsd": 276.89
+      "costAndFreightUsdPerBarrel": 148.4,
+      "exchangeRatePkrPerUsd": 276.87
     },
-    "previousPrice": 391.52,
-    "change": -3.71
+    "previousPrice": 387.81,
+    "change": -5.56
   }
 }

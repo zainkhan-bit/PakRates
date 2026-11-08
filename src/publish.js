@@ -4,7 +4,15 @@ import { downloadUrl } from "./ogra.js";
 import { summarise } from "./parse.js";
 
 const PRODUCTS = ["petrol", "diesel"];
-const CSV_FIELDS = ["productCost", "customsDuty", "freightAndMargins", "petroleumLevy", "climateLevy", "salesTax"];
+const CSV_FIELDS = [
+  "productCost",
+  "customsDuty",
+  "freightAndMargins",
+  "petroleumLevy",
+  "climateLevy",
+  "salesTax",
+  "roundingAdjustment",
+];
 
 export function toRecord(id, publication) {
   const [petrol, diesel] = PRODUCTS.map((product) => {

@@ -11,6 +11,7 @@ const breakdown = {
   petroleumLevy: 50,
   climateLevy: 5,
   salesTax: 0,
+  roundingAdjustment: 0,
 };
 const record = (id, effectiveDate, petrol, diesel) => ({
   id,

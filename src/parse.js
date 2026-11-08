@@ -145,8 +145,14 @@ export function summarise({ date, time, rows }, product) {
   const levyThroughRefineries = optional(/through Refineries/i);
   const climateLevy = optional(/Climate Support Levy/i);
   const salesTax = need(/^Sales Tax/i);
+  // From 2026-11-07 OGRA rounds the final price to a whole rupee and prints the
+  // difference as its own row.
+  const roundingAdjustment = optional(/^Rounding-off Adjustment/i);
+  if (Math.abs(roundingAdjustment) >= 1) {
+    throw new ParseError(`${context}: rounding adjustment of ${roundingAdjustment} is too large`);
+  }
 
-  const summed = beforeLevies + petroleumLevy + levyThroughRefineries + climateLevy + salesTax;
+  const summed = beforeLevies + petroleumLevy + levyThroughRefineries + climateLevy + salesTax + roundingAdjustment;
   if (Math.abs(summed - total) > TOLERANCE) {
     throw new ParseError(`${context}: components add up to ${summed.toFixed(2)}, total says ${total}`);
   }
@@ -161,12 +167,15 @@ export function summarise({ date, time, rows }, product) {
     breakdown: {
       // Levy collected through refineries sits inside the import price, so it is
       // moved out of product cost to show the full levy OGRA lists.
-      productCost: round(total - customsDuty - freightAndMargins - petroleumLevy - climateLevy - salesTax),
+      productCost: round(
+        total - customsDuty - freightAndMargins - petroleumLevy - climateLevy - salesTax - roundingAdjustment,
+      ),
       customsDuty,
       freightAndMargins,
       petroleumLevy,
       climateLevy,
       salesTax,
+      roundingAdjustment,
     },
     market: {
       costAndFreightUsdPerBarrel: need(/^Cost & Freight$/i),

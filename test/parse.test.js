@@ -19,8 +19,30 @@ test("reads the latest format, where levy is split through refineries", async ()
     petroleumLevy: 80,
     climateLevy: 5,
     salesTax: 0,
+    roundingAdjustment: 0,
   });
   assert.deepEqual(record.petrol.market, { costAndFreightUsdPerBarrel: 141.01, exchangeRatePkrPerUsd: 276.91 });
+});
+
+test("reads OGRA's rounding-off adjustment to a whole rupee", async () => {
+  const record = toRecord(18071, await load(18071));
+  assert.equal(record.effectiveDate, "2026-11-07");
+  assert.equal(record.petrol.price, 346);
+  assert.equal(record.diesel.price, 378);
+  assert.equal(record.petrol.breakdown.roundingAdjustment, -0.23);
+  assert.equal(record.diesel.breakdown.roundingAdjustment, 0.19);
+  assert.equal(record.petrol.breakdown.productCost, 209.17);
+  assert.equal(record.diesel.breakdown.productCost, 254.18);
+});
+
+test("rejects a rounding adjustment of a rupee or more", async () => {
+  const { petrol } = await load(18071);
+  const rows = petrol.rows.map((row) => {
+    if (row.label.startsWith("Rounding-off")) return { ...row, value: -1.5 };
+    if (row.label.startsWith("Total Petrol Price")) return { ...row, value: 344.73 };
+    return row;
+  });
+  assert.throws(() => summarise({ ...petrol, rows }, "petrol"), /too large/);
 });
 
 test("reads a formula cell that arrives split across items", async () => {
@@ -44,7 +66,7 @@ test("accepts a diesel import price set by OGRA's weighted average note", async 
 });
 
 test("breakdown always adds up to the price", async () => {
-  for (const id of [17909, 17871, 16677, 15243]) {
+  for (const id of [18071, 17909, 17871, 16677, 15243]) {
     const record = toRecord(id, await load(id));
     for (const { price, breakdown } of [record.petrol, record.diesel]) {
       const sum = Object.values(breakdown).reduce((total, value) => total + value, 0);

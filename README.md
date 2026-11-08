@@ -96,7 +96,8 @@ print(data["petrol"]["price"], data["diesel"]["price"])
       "freightAndMargins": 25.36,
       "petroleumLevy": 80,
       "climateLevy": 5,
-      "salesTax": 0
+      "salesTax": 0,
+      "roundingAdjustment": 0
     },
     "market": {
       "costAndFreightUsdPerBarrel": 136.97,
@@ -128,6 +129,7 @@ A wrong fuel price is worse than a missing one, so PakRates refuses to publish n
 - **productCost** is the landed cost at Karachi plus the exchange rate adjustment, minus any levy collected through refineries.
 - **freightAndMargins** is IFEM plus the oil marketing company and dealer margins.
 - **petroleumLevy** is the full levy OGRA lists, including any part collected through refineries.
+- **roundingAdjustment** is the amount OGRA adds or removes to round the price to a whole rupee. It started on 7 November 2026 and is 0 before that.
 
 The history starts on 21 July 2026 because that is as far back as OGRA's price publications go. The older OGRA notifications sampled so far (2019, 2024 and 2026) cover kerosene only.
 

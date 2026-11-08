@@ -140,6 +140,9 @@ function renderBreakdown(product, record) {
     legend.append(item);
   }
 
+  const rounding = breakdown.roundingAdjustment;
+  $("rounding-note").textContent = rounding ? `Includes OGRA's rounding adjustment of ${money(rounding)}.` : "";
+
   // Government rows are the last two segments, so the bracket lines up under them.
   const others = element("div");
   others.style.flexGrow = price - government;

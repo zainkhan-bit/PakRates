@@ -206,6 +206,7 @@ main h2 { font-size: 22px; font-weight: 650; letter-spacing: -0.015em; }
 .line-key.diesel { --color: var(--diesel); }
 
 .note { margin-top: 6px; color: var(--text-muted); font-size: 14px; }
+#rounding-note:not(:empty) { margin-top: 20px; }
 
 .chart { margin-top: 20px; }
 .chart svg { display: block; width: 100%; touch-action: pan-y; }
